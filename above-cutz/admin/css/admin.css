@@ -1,0 +1,115 @@
+/* ============================================================
+   ABOVE CUTZ — Admin panel styles
+   ============================================================ */
+
+.admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--charcoal-light);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 40px 32px;
+}
+.login-title { font-size: 1.6rem; margin: 8px 0 24px; }
+.login-status { margin-top: 12px; font-size: 0.88rem; min-height: 1.2em; }
+.login-status.error { color: var(--burgundy-bright); }
+.back-link { display: inline-block; margin-top: 20px; font-size: 0.85rem; color: var(--stone); }
+.back-link:hover { color: var(--brass-bright); }
+
+.field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.field span { font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ivory-dim); }
+.field input, .field select, .field textarea {
+  background: var(--charcoal);
+  border: 1px solid var(--line);
+  color: var(--ivory);
+  padding: 11px 13px;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--brass); }
+
+/* ---------- Dashboard shell ---------- */
+.admin-shell { display: flex; min-height: 100vh; }
+.admin-sidebar {
+  width: 220px;
+  background: var(--charcoal-light);
+  border-right: 1px solid var(--line);
+  padding: 24px 0;
+  flex-shrink: 0;
+}
+.admin-sidebar .brand-name { padding: 0 20px 20px; display: block; font-size: 1.2rem; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+.admin-nav-item {
+  display: block;
+  padding: 12px 20px;
+  color: var(--ivory-dim);
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+.admin-nav-item:hover { color: var(--ivory); background: var(--charcoal-lighter); }
+.admin-nav-item.active { color: var(--brass-bright); border-left-color: var(--brass); background: var(--charcoal-lighter); }
+.admin-nav-item.logout { margin-top: 24px; color: var(--stone); }
+
+.admin-main { flex: 1; padding: 32px 40px; max-width: 1100px; }
+.admin-panel { display: none; }
+.admin-panel.active { display: block; }
+.admin-panel h2 { font-size: 1.6rem; margin-bottom: 24px; }
+
+.admin-card {
+  background: var(--charcoal-light);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.admin-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.admin-table th, .admin-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.admin-table th { color: var(--ivory-dim); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.admin-table tr:hover td { background: var(--charcoal-lighter); }
+
+.status-pill { padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+.status-pill.confirmed { background: rgba(173, 133, 53, 0.2); color: var(--brass-bright); }
+.status-pill.completed { background: rgba(127,174,127,0.2); color: #7fae7f; }
+.status-pill.cancelled, .status-pill.no_show { background: rgba(140,42,56,0.25); color: var(--burgundy-bright); }
+
+.icon-btn {
+  background: transparent; border: 1px solid var(--stone); color: var(--ivory-dim);
+  padding: 5px 10px; border-radius: var(--radius); cursor: pointer; font-size: 0.78rem; margin-right: 6px;
+}
+.icon-btn:hover { border-color: var(--brass-bright); color: var(--brass-bright); }
+
+.admin-form-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; }
+.admin-form-row .field { flex: 1; min-width: 140px; margin-bottom: 0; }
+
+.upload-drop {
+  border: 2px dashed var(--stone);
+  border-radius: 4px;
+  padding: 32px;
+  text-align: center;
+  color: var(--ivory-dim);
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.upload-drop:hover { border-color: var(--brass-bright); color: var(--brass-bright); }
+
+.media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
+.media-item { position: relative; aspect-ratio: 1; border-radius: 4px; overflow: hidden; background: var(--charcoal-lighter); }
+.media-item img, .media-item video { width: 100%; height: 100%; object-fit: cover; }
+.media-item .media-delete {
+  position: absolute; top: 6px; right: 6px;
+  background: rgba(21,19,14,0.85); border: none; color: var(--ivory);
+  width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-size: 0.9rem;
+}
+
+.toast { margin-top: 12px; font-size: 0.88rem; min-height: 1.2em; }
+.toast.success { color: #7fae7f; }
+.toast.error { color: var(--burgundy-bright); }

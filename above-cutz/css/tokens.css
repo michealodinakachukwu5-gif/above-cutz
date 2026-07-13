@@ -1,0 +1,144 @@
+/* ============================================================
+   ABOVE CUTZ — Design tokens
+   Palette: charcoal black, warm ivory, aged brass, deep burgundy
+   Type: Fraunces (display) + Inter (body)
+   Signature: engraved menu-board service list w/ dotted leaders,
+   double-rule "razor stripe" dividers instead of numbered badges.
+   ============================================================ */
+
+:root {
+  --charcoal: #15130e;
+  --charcoal-light: #221f17;
+  --charcoal-lighter: #2c2820;
+  --ivory: #efe8d8;
+  --ivory-dim: #c9c2ae;
+  --brass: #ad8535;
+  --brass-bright: #cba24f;
+  --burgundy: #6e1f2a;
+  --burgundy-bright: #8c2a38;
+  --stone: #746c5c;
+  --line: rgba(239, 232, 216, 0.14);
+
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Inter", -apple-system, sans-serif;
+
+  --radius: 2px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--charcoal);
+  color: var(--ivory);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, video { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brass-bright);
+  font-weight: 600;
+}
+
+.razor-rule {
+  height: 6px;
+  width: 100%;
+  background:
+    linear-gradient(var(--brass), var(--brass)) 0 0/100% 1px no-repeat,
+    linear-gradient(var(--line), var(--line)) 0 5px/100% 1px no-repeat;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--brass);
+  color: var(--charcoal);
+}
+.btn-primary:hover { background: var(--brass-bright); transform: translateY(-1px); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--ivory);
+  border-color: var(--stone);
+}
+.btn-outline:hover { border-color: var(--brass-bright); color: var(--brass-bright); }
+
+.btn-block { width: 100%; }
+
+:focus-visible {
+  outline: 2px solid var(--brass-bright);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* Menu-board leader lines (signature service list treatment) */
+.menu-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.menu-row .menu-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+.menu-row .menu-leader {
+  flex: 1;
+  border-bottom: 2px dotted var(--stone);
+  margin-bottom: 6px;
+  min-width: 24px;
+}
+.menu-row .menu-price {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--brass-bright);
+  white-space: nowrap;
+}
+.menu-row .menu-desc {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ivory-dim);
+  margin-top: 4px;
+}

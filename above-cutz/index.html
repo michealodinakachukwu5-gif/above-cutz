@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Above Cutz — Barbershop</title>
+<meta name="description" content="Above Cutz Barbershop — classic cuts, sharp lines, booked online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand">
+      <img src="assets/logo.png" alt="Above Cutz" class="brand-logo" onerror="this.style.display='none'">
+      <span class="brand-name">Above Cutz</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#book">Book</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <a href="#book" class="btn btn-primary nav-cta">Book Now</a>
+  </div>
+</header>
+
+<section id="top" class="hero">
+  <div class="hero-media">
+    <img src="assets/hero-poster.jpg" alt="Above Cutz" class="hero-bg-img">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="container hero-content">
+    <p class="eyebrow">Established Chair &middot; One Barber &middot; No Shortcuts</p>
+    <h1 class="hero-title">Above Cutz</h1>
+    <p class="hero-tagline">Classic barbering, done properly. Sharp lines, hot towels, no rush.</p>
+    <div class="hero-actions">
+      <a href="#book" class="btn btn-primary">Book Your Cut</a>
+      <a href="#services" class="btn btn-outline">See Services</a>
+    </div>
+  </div>
+</section>
+
+<div class="razor-rule"></div>
+
+<section id="services" class="section">
+  <div class="container">
+    <p class="eyebrow">The Board</p>
+    <h2 class="section-title">Services &amp; Prices</h2>
+    <div id="services-list" class="menu-board">
+      <div class="menu-loading">Loading the board…</div>
+    </div>
+  </div>
+</section>
+
+<div class="razor-rule"></div>
+
+<section id="gallery" class="section">
+  <div class="container">
+    <p class="eyebrow">The Work</p>
+    <h2 class="section-title">Gallery</h2>
+    <div id="gallery-grid" class="gallery-grid">
+      <div class="gallery-loading">Loading photos &amp; clips…</div>
+    </div>
+  </div>
+</section>
+
+<div class="razor-rule"></div>
+
+<section id="book" class="section">
+  <div class="container">
+    <p class="eyebrow">Reserve The Chair</p>
+    <h2 class="section-title">Book an Appointment</h2>
+
+    <form id="booking-form" class="booking-form">
+      <div class="form-grid">
+        <label class="field">
+          <span>Service</span>
+          <select id="service-select" required>
+            <option value="">Choose a service…</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Date</span>
+          <input type="date" id="date-input" required>
+        </label>
+
+        <label class="field field-full">
+          <span>Available Times</span>
+          <div id="slots-grid" class="slots-grid">
+            <p class="slots-hint">Pick a service and date to see open times.</p>
+          </div>
+        </label>
+
+        <label class="field">
+          <span>Your Name</span>
+          <input type="text" id="name-input" required autocomplete="name">
+        </label>
+
+        <label class="field">
+          <span>Phone Number</span>
+          <input type="tel" id="phone-input" required autocomplete="tel">
+        </label>
+
+        <label class="field field-full">
+          <span>Notes (optional)</span>
+          <textarea id="notes-input" rows="2" placeholder="Anything the barber should know"></textarea>
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" id="booking-submit">Confirm Booking</button>
+      <p id="booking-status" class="booking-status" role="status"></p>
+    </form>
+  </div>
+</section>
+
+<div class="razor-rule"></div>
+
+<section id="visit" class="section">
+  <div class="container visit-grid">
+    <div>
+      <p class="eyebrow">Find Us</p>
+      <h2 class="section-title">Visit The Shop</h2>
+      <p id="shop-address" class="visit-line">Address on the way — check back soon.</p>
+      <p id="shop-hours" class="visit-line">Mon–Sat, 9:00 AM – 7:00 PM. Closed Sundays.</p>
+      <p id="shop-phone" class="visit-line"></p>
+      <a id="whatsapp-link" href="#" class="btn btn-outline" style="margin-top:16px; display:none;">Message on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; <span id="year"></span> Above Cutz. All rights reserved.</span>
+    <a href="admin/login.html" class="footer-admin">Staff Login</a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>

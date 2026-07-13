@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Above Cutz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <span class="brand-name">Above Cutz</span>
+    <div class="admin-nav-item active" data-panel="bookings">Bookings</div>
+    <div class="admin-nav-item" data-panel="services">Services</div>
+    <div class="admin-nav-item" data-panel="hours">Hours &amp; Time Off</div>
+    <div class="admin-nav-item" data-panel="media">Photos &amp; Videos</div>
+    <div class="admin-nav-item" data-panel="settings">Shop Settings</div>
+    <div class="admin-nav-item logout" id="logout-btn">Log Out</div>
+  </aside>
+
+  <main class="admin-main">
+
+    <!-- BOOKINGS -->
+    <section class="admin-panel active" id="panel-bookings">
+      <h2>Bookings</h2>
+      <div class="admin-card">
+        <label class="field" style="max-width:220px;">
+          <span>Filter by date</span>
+          <input type="date" id="bookings-date-filter">
+        </label>
+      </div>
+      <div class="admin-card">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Time</th><th>Customer</th><th>Phone</th><th>Service</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="bookings-tbody">
+            <tr><td colspan="6">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="admin-panel" id="panel-services">
+      <h2>Services</h2>
+      <div class="admin-card">
+        <form id="service-form" class="admin-form-row">
+          <label class="field"><span>Name</span><input type="text" id="svc-name" required></label>
+          <label class="field"><span>Price (₦)</span><input type="number" id="svc-price" min="0" step="1" required></label>
+          <label class="field"><span>Duration (min)</span><input type="number" id="svc-duration" min="10" step="5" value="30" required></label>
+          <label class="field" style="flex:2;"><span>Description (optional)</span><input type="text" id="svc-desc"></label>
+          <button type="submit" class="btn btn-primary">Add Service</button>
+        </form>
+        <p class="toast" id="service-toast"></p>
+      </div>
+      <div class="admin-card">
+        <table class="admin-table">
+          <thead><tr><th>Name</th><th>Price</th><th>Duration</th><th>Active</th><th></th></tr></thead>
+          <tbody id="services-tbody"><tr><td colspan="5">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- HOURS -->
+    <section class="admin-panel" id="panel-hours">
+      <h2>Hours &amp; Time Off</h2>
+      <div class="admin-card">
+        <h3 style="font-family:var(--font-display); margin-bottom:16px;">Weekly Hours</h3>
+        <table class="admin-table" id="hours-table">
+          <thead><tr><th>Day</th><th>Open</th><th>Opens</th><th>Closes</th><th></th></tr></thead>
+          <tbody id="hours-tbody"><tr><td colspan="5">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="admin-card">
+        <h3 style="font-family:var(--font-display); margin-bottom:16px;">Block Time Off</h3>
+        <form id="block-form" class="admin-form-row">
+          <label class="field"><span>Date</span><input type="date" id="block-date" required></label>
+          <label class="field"><span>From</span><input type="time" id="block-start" required></label>
+          <label class="field"><span>To</span><input type="time" id="block-end" required></label>
+          <label class="field" style="flex:2;"><span>Reason (optional)</span><input type="text" id="block-reason" placeholder="e.g. Public holiday"></label>
+          <button type="submit" class="btn btn-outline">Block</button>
+        </form>
+        <table class="admin-table" style="margin-top:16px;">
+          <thead><tr><th>Date</th><th>Time</th><th>Reason</th><th></th></tr></thead>
+          <tbody id="blocked-tbody"><tr><td colspan="4">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MEDIA -->
+    <section class="admin-panel" id="panel-media">
+      <h2>Photos &amp; Videos</h2>
+      <div class="admin-card">
+        <div class="upload-drop" id="upload-drop">
+          <p><strong>Click to upload</strong> photos or videos (max 30MB each)</p>
+          <input type="file" id="upload-input" accept="image/*,video/*" multiple style="display:none;">
+        </div>
+        <p class="toast" id="media-toast"></p>
+      </div>
+      <div class="admin-card">
+        <div class="media-grid" id="media-grid"><p>Loading…</p></div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="admin-panel" id="panel-settings">
+      <h2>Shop Settings</h2>
+      <div class="admin-card">
+        <form id="settings-form">
+          <div class="admin-form-row">
+            <label class="field"><span>Shop Name</span><input type="text" id="set-name"></label>
+            <label class="field"><span>Phone</span><input type="text" id="set-phone"></label>
+            <label class="field"><span>WhatsApp Number</span><input type="text" id="set-whatsapp" placeholder="e.g. 2348012345678"></label>
+          </div>
+          <label class="field" style="margin-top:16px;"><span>Address</span><input type="text" id="set-address"></label>
+          <button type="submit" class="btn btn-primary" style="margin-top:16px;">Save Settings</button>
+        </form>
+        <p class="toast" id="settings-toast"></p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase-config.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

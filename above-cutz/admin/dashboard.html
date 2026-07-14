@@ -36,10 +36,10 @@
       <div class="admin-card">
         <table class="admin-table">
           <thead>
-            <tr><th>Time</th><th>Customer</th><th>Phone</th><th>Service</th><th>Status</th><th></th></tr>
+            <tr><th>Time</th><th>Customer</th><th>Phone</th><th>Address</th><th>Service</th><th>Status</th><th></th></tr>
           </thead>
           <tbody id="bookings-tbody">
-            <tr><td colspan="6">Loading…</td></tr>
+            <tr><td colspan="7">Loading…</td></tr>
           </tbody>
         </table>
       </div>
@@ -51,7 +51,8 @@
       <div class="admin-card">
         <form id="service-form" class="admin-form-row">
           <label class="field"><span>Name</span><input type="text" id="svc-name" required></label>
-          <label class="field"><span>Price (₦)</span><input type="number" id="svc-price" min="0" step="1" required></label>
+          <label class="field"><span>Type</span><select id="svc-type"><option value="barber">✂ Barber</option><option value="dental">🦷 Dental</option></select></label>
+          <label class="field"><span>Price ($)</span><input type="number" id="svc-price" min="0" step="1" required></label>
           <label class="field"><span>Duration (min)</span><input type="number" id="svc-duration" min="10" step="5" value="30" required></label>
           <label class="field" style="flex:2;"><span>Description (optional)</span><input type="text" id="svc-desc"></label>
           <button type="submit" class="btn btn-primary">Add Service</button>
@@ -60,8 +61,8 @@
       </div>
       <div class="admin-card">
         <table class="admin-table">
-          <thead><tr><th>Name</th><th>Price</th><th>Duration</th><th>Active</th><th></th></tr></thead>
-          <tbody id="services-tbody"><tr><td colspan="5">Loading…</td></tr></tbody>
+          <thead><tr><th>Name</th><th>Type</th><th>Price</th><th>Duration</th><th>Active</th><th></th></tr></thead>
+          <tbody id="services-tbody"><tr><td colspan="6">Loading…</td></tr></tbody>
         </table>
       </div>
     </section>
@@ -117,7 +118,7 @@
             <label class="field"><span>Phone</span><input type="text" id="set-phone"></label>
             <label class="field"><span>WhatsApp Number</span><input type="text" id="set-whatsapp" placeholder="e.g. 2348012345678"></label>
           </div>
-          <label class="field" style="margin-top:16px;"><span>Address</span><input type="text" id="set-address"></label>
+          <label class="field" style="margin-top:16px;"><span>Service Area (e.g. neighborhoods covered)</span><input type="text" id="set-address"></label>
           <button type="submit" class="btn btn-primary" style="margin-top:16px;">Save Settings</button>
         </form>
         <p class="toast" id="settings-toast"></p>

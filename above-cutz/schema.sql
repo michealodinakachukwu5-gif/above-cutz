@@ -58,6 +58,7 @@ create table if not exists appointments (
   customer_name text not null,
   customer_phone text not null,
   customer_email text,
+  customer_address text not null,
   appointment_date date not null,
   start_time time not null,
   end_time time not null,

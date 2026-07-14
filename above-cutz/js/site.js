@@ -47,6 +47,49 @@ async function loadServices() {
 
   state.services = data;
 
+  // Barber services on the menu board
+  const barberServices = data.filter(s => s.service_type === 'barber' || !s.service_type);
+  listEl.innerHTML = barberServices.length ? barberServices.map(s => `
+    <div class="menu-row">
+      <div>
+        <span class="menu-name">${s.name}</span>
+        ${s.description ? `<span class="menu-desc">${s.description}</span>` : ""}
+      </div>
+      <span class="menu-leader"></span>
+      <span class="menu-price">${money(s.price)}</span>
+    </div>
+  `).join("") : `<p class="menu-loading">Services coming soon.</p>`;
+
+  // All services in the booking dropdown with category labels
+  const barber = data.filter(s => s.service_type === 'barber' || !s.service_type);
+  const dental = data.filter(s => s.service_type === 'dental');
+
+  let options = `<option value="">Choose a service…</option>`;
+  if (barber.length) {
+    options += `<optgroup label="✂ Barbering">` + barber.map(s => `<option value="${s.id}">${s.name} — ${money(s.price)}</option>`).join("") + `</optgroup>`;
+  }
+  if (dental.length) {
+    options += `<optgroup label="🦷 Dental Care">` + dental.map(s => `<option value="${s.id}">${s.name} — ${money(s.price)}</option>`).join("") + `</optgroup>`;
+  }
+  selectEl.innerHTML = options;
+}
+
+async function loadDentalServices() {
+  const listEl = document.getElementById("dental-list");
+  if (!listEl) return;
+
+  const { data, error } = await supabaseClient
+    .from("services")
+    .select("*")
+    .eq("is_active", true)
+    .eq("service_type", "dental")
+    .order("sort_order", { ascending: true });
+
+  if (error || !data || data.length === 0) {
+    listEl.innerHTML = `<p class="menu-loading">Dental services coming soon.</p>`;
+    return;
+  }
+
   listEl.innerHTML = data.map(s => `
     <div class="menu-row">
       <div>
@@ -57,9 +100,6 @@ async function loadServices() {
       <span class="menu-price">${money(s.price)}</span>
     </div>
   `).join("");
-
-  selectEl.innerHTML = `<option value="">Choose a service…</option>` +
-    data.map(s => `<option value="${s.id}">${s.name} — ${money(s.price)}</option>`).join("");
 }
 
 // ---------- load gallery ----------
@@ -195,6 +235,11 @@ document.getElementById("booking-form").addEventListener("submit", async (e) => 
     statusEl.className = "booking-status error";
     return;
   }
+  if (!document.getElementById("address-input").value.trim()) {
+    statusEl.textContent = "Please enter the address for the home visit.";
+    statusEl.className = "booking-status error";
+    return;
+  }
 
   submitBtn.disabled = true;
   submitBtn.textContent = "Booking…";
@@ -203,6 +248,7 @@ document.getElementById("booking-form").addEventListener("submit", async (e) => 
     service_id: state.selectedServiceId,
     customer_name: document.getElementById("name-input").value.trim(),
     customer_phone: document.getElementById("phone-input").value.trim(),
+    customer_address: document.getElementById("address-input").value.trim(),
     appointment_date: state.selectedDate,
     start_time: state.selectedTime.start,
     end_time: state.selectedTime.end,
@@ -229,5 +275,6 @@ document.getElementById("booking-form").addEventListener("submit", async (e) => 
 
 // ---------- init ----------
 loadServices();
+loadDentalServices();
 loadGallery();
 loadSettings();

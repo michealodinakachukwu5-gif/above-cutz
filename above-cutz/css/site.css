@@ -146,6 +146,15 @@
 /* ---------- Visit ---------- */
 .visit-line { color: var(--ivory-dim); margin: 6px 0; }
 
+/* ---------- Dental section ---------- */
+.dental-intro {
+  color: var(--ivory-dim);
+  max-width: 640px;
+  margin-bottom: 32px;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
 /* ---------- Footer ---------- */
 .footer { padding: 28px 0; border-top: 1px solid var(--line); }
 .footer-inner {

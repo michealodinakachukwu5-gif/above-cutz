@@ -50,7 +50,7 @@ async function loadBookings() {
   const { data, error } = await query;
 
   if (error || !data || data.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6">No bookings found.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7">No bookings found.</td></tr>`;
     return;
   }
 
@@ -59,6 +59,7 @@ async function loadBookings() {
       <td>${b.appointment_date}<br><span style="color:var(--ivory-dim)">${b.start_time.slice(0,5)}</span></td>
       <td>${b.customer_name}</td>
       <td>${b.customer_phone}</td>
+      <td>${b.customer_address || "—"}</td>
       <td>${b.services ? b.services.name : "—"}</td>
       <td><span class="status-pill ${b.status}">${b.status.replace("_"," ")}</span></td>
       <td>
@@ -95,6 +96,7 @@ async function loadServices() {
   tbody.innerHTML = data.map(s => `
     <tr>
       <td>${s.name}${s.description ? `<br><span style="color:var(--ivory-dim); font-size:0.82rem;">${s.description}</span>` : ""}</td>
+      <td><span style="font-size:0.78rem; color:var(--brass-bright);">${s.service_type === 'dental' ? '🦷 Dental' : '✂ Barber'}</span></td>
       <td>${money(s.price)}</td>
       <td>${s.duration_minutes} min</td>
       <td>${s.is_active ? "Yes" : "No"}</td>
@@ -125,6 +127,7 @@ document.getElementById("service-form").addEventListener("submit", async (e) => 
   const toast = document.getElementById("service-toast");
   const { error } = await supabaseClient.from("services").insert({
     name: document.getElementById("svc-name").value.trim(),
+    service_type: document.getElementById("svc-type").value,
     price: Number(document.getElementById("svc-price").value),
     duration_minutes: Number(document.getElementById("svc-duration").value),
     description: document.getElementById("svc-desc").value.trim() || null,

@@ -26,7 +26,7 @@ function formatTime12(t) {
   return `${h12}:${m.toString().padStart(2, "0")} ${period}`;
 }
 function money(n) {
-  return `₦${Number(n).toLocaleString()}`;
+  return `$${Number(n).toLocaleString()}`;
 }
 
 // ---------- load services ----------

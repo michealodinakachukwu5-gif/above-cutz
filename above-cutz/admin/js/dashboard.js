@@ -21,7 +21,7 @@ document.querySelectorAll(".admin-nav-item[data-panel]").forEach(item => {
   });
 });
 
-function money(n) { return `₦${Number(n).toLocaleString()}`; }
+function money(n) { return `$${Number(n).toLocaleString()}`; }
 function showToast(el, msg, ok) {
   el.textContent = msg;
   el.className = `toast ${ok ? "success" : "error"}`;
@@ -218,6 +218,7 @@ document.getElementById("upload-drop").addEventListener("click", () => {
 document.getElementById("upload-input").addEventListener("change", async (e) => {
   const toast = document.getElementById("media-toast");
   const files = Array.from(e.target.files);
+  const section = document.getElementById("upload-section").value;
 
   for (const file of files) {
     if (file.size > MAX_FILE_MB * 1024 * 1024) {
@@ -225,7 +226,7 @@ document.getElementById("upload-input").addEventListener("change", async (e) => 
       continue;
     }
     const fileType = file.type.startsWith("video") ? "video" : "image";
-    const path = `gallery/${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
+    const path = `${section}/${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
 
     const { error: uploadError } = await supabaseClient.storage.from("media").upload(path, file);
     if (uploadError) { showToast(toast, `Upload failed: ${uploadError.message}`, false); continue; }
@@ -234,7 +235,7 @@ document.getElementById("upload-input").addEventListener("change", async (e) => 
     await supabaseClient.from("media").insert({
       file_url: urlData.publicUrl,
       file_type: fileType,
-      section: "gallery",
+      section: section,
     });
   }
   showToast(toast, "Upload complete.", true);
@@ -244,27 +245,37 @@ document.getElementById("upload-input").addEventListener("change", async (e) => 
 
 async function loadMedia() {
   const grid = document.getElementById("media-grid");
+  const dentalGrid = document.getElementById("dental-media-grid");
+
   const { data, error } = await supabaseClient.from("media").select("*").order("created_at", { ascending: false });
 
-  if (error || !data || data.length === 0) {
-    grid.innerHTML = `<p>No photos or videos uploaded yet.</p>`;
+  if (error || !data) {
+    grid.innerHTML = `<p>Could not load media.</p>`;
     return;
   }
 
-  grid.innerHTML = data.map(m => `
-    <div class="media-item" data-id="${m.id}">
-      ${m.file_type === "video" ? `<video src="${m.file_url}" muted></video>` : `<img src="${m.file_url}">`}
-      <button class="media-delete" data-id="${m.id}">&times;</button>
-    </div>
-  `).join("");
+  const barberItems = data.filter(m => m.section === "gallery");
+  const dentalItems = data.filter(m => m.section === "dental");
 
-  grid.querySelectorAll(".media-delete").forEach(btn => {
-    btn.addEventListener("click", async () => {
-      if (!confirm("Delete this item?")) return;
-      await supabaseClient.from("media").delete().eq("id", btn.dataset.id);
-      loadMedia();
+  const renderGrid = (items, el) => {
+    if (!items.length) { el.innerHTML = `<p style="color:var(--ivory-dim); font-size:0.9rem;">Nothing uploaded yet.</p>`; return; }
+    el.innerHTML = items.map(m => `
+      <div class="media-item" data-id="${m.id}">
+        ${m.file_type === "video" ? `<video src="${m.file_url}" muted></video>` : `<img src="${m.file_url}">`}
+        <button class="media-delete" data-id="${m.id}">&times;</button>
+      </div>
+    `).join("");
+    el.querySelectorAll(".media-delete").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Delete this item?")) return;
+        await supabaseClient.from("media").delete().eq("id", btn.dataset.id);
+        loadMedia();
+      });
     });
-  });
+  };
+
+  renderGrid(barberItems, grid);
+  renderGrid(dentalItems, dentalGrid);
 }
 
 // ============================================================

@@ -97,6 +97,13 @@
     <section class="admin-panel" id="panel-media">
       <h2>Photos &amp; Videos</h2>
       <div class="admin-card">
+        <label class="field" style="max-width:260px; margin-bottom:16px;">
+          <span>Upload to section</span>
+          <select id="upload-section">
+            <option value="gallery">Barber Gallery</option>
+            <option value="dental">Dental Gallery</option>
+          </select>
+        </label>
         <div class="upload-drop" id="upload-drop">
           <p><strong>Click to upload</strong> photos or videos (max 30MB each)</p>
           <input type="file" id="upload-input" accept="image/*,video/*" multiple style="display:none;">
@@ -104,7 +111,12 @@
         <p class="toast" id="media-toast"></p>
       </div>
       <div class="admin-card">
+        <p class="eyebrow" style="margin-bottom:12px;">Barber Gallery</p>
         <div class="media-grid" id="media-grid"><p>Loading…</p></div>
+      </div>
+      <div class="admin-card">
+        <p class="eyebrow" style="margin-bottom:12px;">Dental Gallery</p>
+        <div class="media-grid" id="dental-media-grid"><p>Loading…</p></div>
       </div>
     </section>
 

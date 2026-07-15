@@ -63,6 +63,32 @@ async function loadDentalServices() {
     data.map(s => `<option value="${s.id}">${s.name} — ${money(s.price)}</option>`).join("");
 }
 
+// ---------- Load dental gallery ----------
+async function loadDentalGallery() {
+  const gridEl = document.getElementById("dental-gallery-grid");
+  if (!gridEl) return;
+
+  const { data, error } = await supabaseClient
+    .from("media")
+    .select("*")
+    .eq("section", "dental")
+    .order("created_at", { ascending: false });
+
+  if (error || !data || data.length === 0) {
+    gridEl.innerHTML = `<p class="gallery-loading">Photos coming soon.</p>`;
+    return;
+  }
+
+  gridEl.innerHTML = data.map(m => `
+    <figure>
+      ${m.file_type === "video"
+        ? `<video src="${m.file_url}" muted loop playsinline onmouseover="this.play()" onmouseout="this.pause()"></video>`
+        : `<img src="${m.file_url}" alt="${m.caption || 'Above Cutz Dental'}" loading="lazy">`
+      }
+    </figure>
+  `).join("");
+}
+
 // ---------- Load WhatsApp link ----------
 async function loadSettings() {
   const { data } = await supabaseClient.from("shop_settings").select("*").eq("id", 1).single();
@@ -205,4 +231,5 @@ document.getElementById("dental-booking-form").addEventListener("submit", async 
 
 // ---------- Init ----------
 loadDentalServices();
+loadDentalGallery();
 loadSettings();
